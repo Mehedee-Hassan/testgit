@@ -73,3 +73,44 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sample DataFrame creation - replace this with your actual DataFrame loading or creation
+np.random.seed(0)  # For reproducibility
+dates = pd.date_range('2023-01-01', periods=100)
+actual_values = np.random.rand(100) * 100
+forecast_values = actual_values + (np.random.rand(100) - 0.5) * 10
+df = pd.DataFrame({'Date': dates, 'Actual': actual_values, 'Forecast': forecast_values})
+
+# Optionally copy Actual to create a simulated forecast for comparison
+# For illustration, we skip this since we already have a forecast
+
+# Calculate Absolute Error (AE) and Squared Error (SE)
+df['AE'] = np.abs(df['Actual'] - df['Forecast'])
+df['SE'] = np.square(df['Actual'] - df['Forecast'])
+
+# Plotting
+plt.figure(figsize=(14, 8))
+
+# Actual vs. Forecast plot
+plt.subplot(2, 1, 1)
+plt.plot(df['Date'], df['Actual'], label='Actual Values', marker='o', linestyle='-', markersize=5)
+plt.plot(df['Date'], df['Forecast'], label='Forecast Values', marker='x', linestyle='--', markersize=5)
+plt.title('Actual vs. Forecast Values')
+plt.legend()
+
+# Error plot (Optional) - Absolute Error in this case
+plt.subplot(2, 1, 2)
+plt.plot(df['Date'], df['AE'], label='Absolute Error', color='red', linestyle='-', linewidth=2)
+plt.title('Absolute Error Over Time')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
