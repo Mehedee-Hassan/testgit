@@ -26,3 +26,50 @@ print(f"Forecast 1 - MAE: {mae1}, MSE: {mse1}, RMSE: {rmse1}, MAPE: {mape1}%")
 print(f"Forecast 2 - MAE: {mae2}, MSE: {mse2}, RMSE: {rmse2}, MAPE: {mape2}%")
 
 # Decide which forecast is better based on lower error metrics
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# For illustration, generate synthetic data
+np.random.seed(0)  # For reproducibility
+dates = pd.date_range('2023-01-01', periods=100)
+actual = np.random.rand(100) * 100
+forecast1 = actual + (np.random.rand(100) - 0.5) * 10
+forecast2 = actual + (np.random.rand(100) - 0.5) * 15
+
+# Create a DataFrame
+df = pd.DataFrame({
+    'Date': dates,
+    'Actual': actual,
+    'Forecast1': forecast1,
+    'Forecast2': forecast2
+})
+
+# Calculate errors
+df['AE1'] = np.abs(df['Actual'] - df['Forecast1'])
+df['AE2'] = np.abs(df['Actual'] - df['Forecast2'])
+df['SE1'] = np.square(df['Actual'] - df['Forecast1'])
+df['SE2'] = np.square(df['Actual'] - df['Forecast2'])
+
+# Plotting
+plt.figure(figsize=(14, 8))
+
+# Absolute Error plot
+plt.subplot(2, 1, 1)
+plt.plot(df['Date'], df['AE1'], label='Absolute Error Forecast 1')
+plt.plot(df['Date'], df['AE2'], label='Absolute Error Forecast 2')
+plt.title('Absolute Error Over Time')
+plt.legend()
+
+# Squared Error plot
+plt.subplot(2, 1, 2)
+plt.plot(df['Date'], df['SE1'], label='Squared Error Forecast 1')
+plt.plot(df['Date'], df['SE2'], label='Squared Error Forecast 2')
+plt.title('Squared Error Over Time')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
