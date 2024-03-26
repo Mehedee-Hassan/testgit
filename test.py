@@ -114,3 +114,24 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+
+
+import matplotlib.pyplot as plt
+
+plt.hist(residuals, bins=30, alpha=0.7, edgecolor='black')
+plt.title('Histogram of Residuals')
+plt.xlabel('Residuals')
+plt.ylabel('Frequency')
+plt.show()
+
+
+import scipy.stats as stats
+
+stats.probplot(residuals, dist="norm", plot=plt)
+plt.title('Q-Q Plot of Residuals')
+plt.show()
+
+
+shapiro_test = stats.shapiro(residuals)
+print(f'Shapiro-Wilk test statistic: {shapiro_test[0]}, p-value: {shapiro_test[1]}')
