@@ -135,3 +135,65 @@ plt.show()
 
 shapiro_test = stats.shapiro(residuals)
 print(f'Shapiro-Wilk test statistic: {shapiro_test[0]}, p-value: {shapiro_test[1]}')
+
+
+
+
+
+
+##################
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+# Generating a sample dataset
+np.random.seed(0)
+num_points = 10000
+actual = np.random.normal(100, 15, num_points)
+predictions = actual + np.random.normal(0, 10, num_points)  # Predictions with some error
+
+df = pd.DataFrame({'Actual': actual, 'Prediction': predictions})
+
+# Scatter plot
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Actual'], df['Prediction'], alpha=0.3)  # Adjust alpha for transparency
+plt.title('Actual vs. Prediction')
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.grid(True)
+plt.show()
+
+
+
+
+
+plt.figure(figsize=(14, 7))
+plt.plot(df.index, df['Actual'], label='Actual Values', alpha=0.6)
+plt.plot(df.index, df['Prediction'], label='Predicted Values', alpha=0.6)
+plt.legend()
+plt.title('Actual and Predicted Values Over Time')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.show()
+
+
+
+plt.figure(figsize=(10, 6))
+sns.kdeplot(df['Actual'], label='Actual Values', bw_adjust=0.5)
+sns.kdeplot(df['Prediction'], label='Predicted Values', bw_adjust=0.5)
+plt.legend()
+plt.title('Density Plot of Actual and Predicted Values')
+plt.show()
+
+
+
+plt.figure(figsize=(10, 6))
+plt.hexbin(df['Actual'], df['Prediction'], gridsize=50, cmap='Purples', mincnt=1)
+plt.colorbar(label='Count')
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Hexbin Plot of Actual vs. Predicted Values')
+plt.show()
+
